@@ -1,0 +1,50 @@
+create table DEPT ( 
+    Dno number(2) not null, 
+    Dname varchar2(20), 
+    primary key (Dno) 
+);
+
+select * from DEPT;
+insert into DEPT values (1, 'Research');
+insert into DEPT values (2, 'Finance');
+
+create table EMPLO (
+    Eno char(2) check (Eno like 'E%'),
+    Ename varchar2(10) not null,
+    City varchar2(10) check (City in('Chennai','Mumbai','Kolkata','Delhi')),
+    Salary number(6),
+    Dno number(2) references DEPT(Dno),
+    Joindate date,
+    primary key (Eno)
+);
+
+select * from EMPLO;
+insert into EMPLO values('E1', 'Ashim','Kolkata', 10000, 1, '01-Jun-02');
+    insert into EMPLO values('E2', 'Kamal','Mumbai', 18000, 2, '02-Jan-02');
+insert into EMPLO values('E3', 'Tamal','Chennai', 7000, 1, '07-Feb-04');
+    insert into EMPLO values('E4', 'Asha','Kolkata', 8000, 2, '01-Mar-07');
+insert into EMPLO values('E5', 'Timir','Delhi', 7000, 1, '11-Jun-05');
+
+
+
+
+create table PROJECT(
+    Pno char(2) check (Pno like 'P%'),
+    Eno char(2) references EMPLO(Eno),
+    primary key (Pno, eno)
+);
+
+insert into PROJECT values('P1', 'E1');
+insert into PROJECT values('P2', 'E3');
+insert into PROJECT values('P1', 'E5');
+insert into PROJECT values('P2', 'E1');
+select * from PROJECT;
+
+select * from DEPT;
+select * from EMPLO;
+select * from PROJECT;
+
+commit;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
